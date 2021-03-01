@@ -33,6 +33,15 @@ class Hotel {
       room.addOccupant(person);
     }
   }
+
+  hasVacancy() {
+    for (let prop in this.rooms) {
+      if (this.rooms[prop].isFull()) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 class Room {
@@ -62,18 +71,21 @@ class Room {
 }
 
 const rooms = [
-  ['Basement', 4],
   ['Attic', 2],
   ['Under the Stairs', 1]
 ];
 const hotel = new Hotel("hilbert's grand hotel", rooms);
 console.log(hotel);
-console.log(hotel.rooms['Basement'].capacity);
+console.log(hotel.rooms['Attic'].capacity);
 console.log(hotel.getName());
+console.log('has vacancy', hotel.hasVacancy());
 console.log(hotel);
-console.log(hotel.roomExists('Basement'));
+console.log(hotel.roomExists('Attic'));
 
 console.log(hotel.roomExists('Closet'));
-console.log(hotel.checkIn('Rick', 'Attic'));
-console.log(hotel.checkIn('Morty', 'Attic'));
-console.log(hotel.checkIn('Jerry', 'Attic'));
+hotel.checkIn('Rick', 'Attic');
+hotel.checkIn('Morty', 'Attic');
+hotel.checkIn('Jerry', 'Attic');
+console.log('has vacancy', hotel.hasVacancy());
+hotel.checkIn('Harry', 'Under the Stairs');
+console.log('has vacancy', hotel.hasVacancy());

@@ -8,7 +8,7 @@ class Hotel {
     let roomsObject = {};
     rooms.forEach(room => {
       const [name, capacity] = room;
-      roomsObject[name] = { capacity };
+      roomsObject[name] = new Room(capacity);
     });
     return roomsObject;
   }
@@ -22,6 +22,16 @@ class Hotel {
 
   roomExists(roomName) {
     return Object.keys(this.rooms).includes(roomName);
+  }
+
+  checkIn(person, roomName) {
+    if (!this.roomExists(roomName)) {
+      console.log('sorry, room does not exist');
+    } else {
+      const room = this.rooms[roomName];
+      console.log(room);
+      room.addOccupant(person);
+    }
   }
 }
 
@@ -41,8 +51,10 @@ class Room {
 
   addOccupant(occupant) {
     if (this.isFull()) {
+      console.log('sorry, room is full');
       return false;
     } else {
+      console.log('check in successful');
       this.occupants.push(occupant);
       return true;
     }
@@ -62,3 +74,6 @@ console.log(hotel);
 console.log(hotel.roomExists('Basement'));
 
 console.log(hotel.roomExists('Closet'));
+console.log(hotel.checkIn('Rick', 'Attic'));
+console.log(hotel.checkIn('Morty', 'Attic'));
+console.log(hotel.checkIn('Jerry', 'Attic'));

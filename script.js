@@ -42,6 +42,14 @@ class Hotel {
     }
     return true;
   }
+
+  listRooms() {
+    console.log('room name & available spaces');
+    for (let prop in this.rooms) {
+      const room = this.rooms[prop];
+      console.log(`${prop} ${room.availableSpace()}`);
+    }
+  }
 }
 
 class Room {
@@ -75,17 +83,21 @@ const rooms = [
   ['Under the Stairs', 1]
 ];
 const hotel = new Hotel("hilbert's grand hotel", rooms);
+hotel.listRooms();
 console.log(hotel);
 console.log(hotel.rooms['Attic'].capacity);
 console.log(hotel.getName());
 console.log('has vacancy', hotel.hasVacancy());
 console.log(hotel);
-console.log(hotel.roomExists('Attic'));
-
-console.log(hotel.roomExists('Closet'));
+console.log('roomExists', hotel.roomExists('Attic'));
+console.log('roomExists', hotel.roomExists('Closet'));
 hotel.checkIn('Rick', 'Attic');
 hotel.checkIn('Morty', 'Attic');
+hotel.listRooms();
 hotel.checkIn('Jerry', 'Attic');
+hotel.checkIn('Dick', 'Kitchen');
 console.log('has vacancy', hotel.hasVacancy());
 hotel.checkIn('Harry', 'Under the Stairs');
+console.log(hotel);
 console.log('has vacancy', hotel.hasVacancy());
+hotel.listRooms();

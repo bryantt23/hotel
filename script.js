@@ -30,17 +30,25 @@ class Hotel {
     } else {
       const room = this.rooms[roomName];
       console.log(room);
-      room.addOccupant(person);
+      if (room.addOccupant(person)) {
+        console.log('check in successful');
+      } else {
+        console.log('sorry, room is full');
+      }
     }
   }
 
   hasVacancy() {
-    for (let prop in this.rooms) {
-      if (this.rooms[prop].isFull()) {
-        return false;
-      }
-    }
-    return true;
+    return Object.values(this.rooms).some(room => {
+      console.log(room);
+      return !room.isFull();
+    });
+    // for (let prop in this.rooms) {
+    //   if (this.rooms[prop].isFull()) {
+    //     return false;
+    //   }
+    // }
+    // return true;
   }
 
   listRooms() {
@@ -68,10 +76,8 @@ class Room {
 
   addOccupant(occupant) {
     if (this.isFull()) {
-      console.log('sorry, room is full');
       return false;
     } else {
-      console.log('check in successful');
       this.occupants.push(occupant);
       return true;
     }
